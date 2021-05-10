@@ -1,0 +1,97 @@
+# BDCN with pretrain:
+
+python test_data_watershed.py --reconstruction_image_path ../benchmark/best_models/best_models_prediction/BDCN_pretrain_test.png --ws_path ./output_test/BDCN_pretrain/ws.tiff --out_path output_test/BDCN_pretrain/out.png --dynamic 7 --area 300 --output_dir output_test/BDCN_pretrain
+
+********************************************************************************
+Number of labels in GT: 2836
+Number of labels in contender: 1264
+F1@IoU=0.5): 0.159
+COCO Panoptic eval: PQ: 0.378 = SQ 0.864 + RQ 0.438
+     Precision  Recall  F-score  True Positives  False Positives  False Negatives
+IoU                                                                              
+0.5       0.71    0.32     0.44             897              367             1939
+0.7       0.60    0.27     0.37             760              504             2076
+0.8       0.54    0.24     0.33             679              585             2157
+0.9       0.40    0.18     0.25             504              760             2332
+*********************************************************************************
+
+# BDCN with scratch:
+python test_data_watershed.py --reconstruction_image_path ../benchmark/best_models/best_models_prediction/BDCN_scratch_test.png --ws_path ./output_test/BDCN_scratch/ws.tiff --out_path output_test/BDCN_scratch/out.png --dynamic 8 --area 200 --output_dir output_test/BDCN_scratch
+
+*********************************************************************************
+Number of labels in GT: 2836
+Number of labels in contender: 1298
+F1@IoU=0.5): 0.145
+COCO Panoptic eval: PQ: 0.349 = SQ 0.858 + RQ 0.406
+     Precision  Recall  F-score  True Positives  False Positives  False Negatives
+IoU                                                                              
+0.5       0.65    0.30     0.41             840              458             1996
+0.7       0.54    0.25     0.34             703              595             2133
+0.8       0.49    0.22     0.30             630              668             2206
+0.9       0.34    0.16     0.22             445              853             2391
+*********************************************************************************
+
+# HED with pretrain
+
+python test_data_watershed.py --reconstruction_image_path ../benchmark/best_models/best_models_prediction/HED_pretrain_test.png --ws_path ./output_test/HED_pretrain/ws.tiff --out_path output_test/HED_pretrain/out.png --dynamic 8 --area 300 --output_dir output_test/HED_pretrain
+
+*********************************************************************************
+Number of labels in GT: 2836
+Number of labels in contender: 1409
+F1@IoU=0.5): 0.159
+COCO Panoptic eval: PQ: 0.384 = SQ 0.855 + RQ 0.449
+     Precision  Recall  F-score  True Positives  False Positives  False Negatives
+IoU                                                                              
+0.5       0.68    0.34     0.45             953              456             1883
+0.7       0.57    0.28     0.38             799              610             2037
+0.8       0.50    0.25     0.33             708              701             2128
+0.9       0.36    0.18     0.24             506              903             2330
+*********************************************************************************
+
+# HED scratch
+python test_data_watershed.py --reconstruction_image_path ../benchmark/best_models/best_models_prediction/HED_scratch_test.png --ws_path ./output_test/HED_scratch/ws.tiff --out_path output_test/HED_scratch/out.png --dynamic 10 --area 200 --output_dir output_test/HED_scratch
+
+**********************************************************************************
+Number of labels in GT: 2836
+Number of labels in contender: 1455
+F1@IoU=0.5): 0.145
+COCO Panoptic eval: PQ: 0.356 = SQ 0.846 + RQ 0.420
+     Precision  Recall  F-score  True Positives  False Positives  False Negatives
+IoU                                                                              
+0.5       0.62    0.32     0.42             902              553             1934
+0.7       0.51    0.26     0.35             747              708             2089
+0.8       0.45    0.23     0.31             655              800             2181
+0.9       0.29    0.15     0.20             419             1036             2417
+*********************************************************************************
+
+# UNET scratch
+python test_data_watershed.py --reconstruction_image_path ../benchmark/best_models/best_models_prediction/UNET_scratch_test.png --ws_path ./output_test/UNET_scratch/ws.tiff --out_path output_test/UNET_scratch/out.png --dynamic 0 --area 50 --output_dir output_test/UNET_scratch
+
+*********************************************************************************
+Number of labels in GT: 2836
+Number of labels in contender: 493
+F1@IoU=0.5): 0.075
+COCO Panoptic eval: PQ: 0.183 = SQ 0.852 + RQ 0.214
+     Precision  Recall  F-score  True Positives  False Positives  False Negatives
+IoU                                                                              
+0.5       0.72    0.13     0.21             357              136             2479
+0.7       0.62    0.11     0.19             308              185             2528
+0.8       0.55    0.10     0.16             271              222             2565
+0.9       0.34    0.06     0.10             166              327             2670
+*********************************************************************************
+
+# CONNET scratch
+
+*********************************************************************************
+Number of labels in GT: 2836
+Number of labels in contender: 6156
+F1@IoU=0.5): 0.045
+COCO Panoptic eval: PQ: 0.142 = SQ 0.736 + RQ 0.193
+     Precision  Recall  F-score  True Positives  False Positives  False Negatives
+IoU                                                                              
+0.5       0.14    0.31     0.19             866             5290             1970
+0.7       0.08    0.18     0.11             507             5649             2329
+0.8       0.05    0.11     0.07             303             5853             2533
+0.9       0.02    0.05     0.03             130             6026             2706
+*********************************************************************************
+
