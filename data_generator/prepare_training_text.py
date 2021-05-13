@@ -59,7 +59,7 @@ def create_list_file(image_tiles_folder, gt_tiles_folder, list_name):
 if __name__ == '__main__':
 	# create_training_list_file
 	# create_training_list_file()
-	image_tiles_folder = '/lrde/home2/ychen/code_for_ICDAR/ICDAR_paper/icdar21-paper-map-object-seg/data_generator/test_data_tiles'
-	gt_tiles_folder = '/lrde/home2/ychen/code_for_ICDAR/ICDAR_paper/icdar21-paper-map-object-seg/data_generator/test_gt_tiles'
+	image_tiles_folder = './data_generator/test_data_tiles'
+	gt_tiles_folder = './data_generator/test_gt_tiles'
 	list_name = 'test_pair.lst'
 	create_list_file(image_tiles_folder, gt_tiles_folder, list_name)

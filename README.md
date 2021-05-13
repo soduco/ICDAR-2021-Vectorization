@@ -2,7 +2,7 @@
 
 ## Pipeline
 <p align="center">
-<img src="./images/pipeline_v1.svg" width="800px">
+<img src="./images/pipeline_v1.pdf" width="800px">
 </p>
 
 ## Abstract
@@ -44,7 +44,7 @@ cd ICDAR-2021-Vectorization
 You now have the code in directory ICDAR-2021-Vectorization.
 At this point, you should probably create a virtual environment. For instance:
 ```shell script
-python3 -m venv vec-env
+python -m venv vec-env
 source ./vec-env/bin/activate
 ```
 Now, install the dependencies (with pip).
@@ -80,7 +80,7 @@ Please check the [Releases](https://github.com/soduco/ICDAR-2021-Vectorization/r
 The training patch data need to be downloaded from [here](https://github.com/soduco/ICDAR-2021-Vectorization/releases), zipped and saved into `./data_generator`. 
 The file index .lst file can be also download in the same Release.
 
-The file structure is : 
+The file structure is:
 
 ```
 ./ICDAR-2021-Vectorization/data_generator
@@ -118,14 +118,93 @@ config_val = {
 
 ```
 
+### 3.3. Create image patch from full map images
+To create image patches for training, it consist two seperate step:
+1. Create image patches
+2. Generate .lst file index from image patches
+
+#### 3.3.1. Create Image patches
+
+Since the size of whole image is too big as the input of the network, we require to divide the whole map image into batches.
+
+The batch images will save into folder *output_directory/image* and *output_directory/gt*
+
+```shell script
+python ./data_generator/create_image_batch.py <map_image_input> <ground_truth_image_input> <output_directory>
+```
+
+#### 3.3.2. Generate .lst file index from image patches
+The prepare training text can create .lst file with image file indexing in order to train the network.
+
+```shell script
+python ./data_generator/prepare_training_text.py
+```
+
+The file structure should be the same as in section 3.2.
+
+
 ## 4. Train
 we can now train the models with the prepared data. Remeber the data should be patched and .lst file should be correctly generated and put into the right place. If you want to get more control for your training, you can list all the arguments:
 
- ``` Bash
-cd ./train/<model_name>/train.py
+``` Bash
+cd ./train/<model_name>
 python train.py --help
 ```
 
-If you want to train HED and BDCN with pre-train model (The folder ./train/HED_pretrain and ./train/BDCN_pretrain) please download the .pth pretrain model file (vgg16-397923af.pth) from [here](https://github.com/soduco/ICDAR-2021-Vectorization/releases) and put it into *./pretrain_weight/*.
+```
+usage: train.py [-h] [-d {HistoricalMap2020}] [--param-dir PARAM_DIR] [--lr BASE_LR] [-m MOMENTUM] [--model MODEL] [-c] [-g GPU] [--weight-decay WEIGHT_DECAY] [-r RESUME] [-p PRETRAIN] [--epochs EPOCHS] [--max-iter MAX_ITER] [--iter-size ITER_SIZE][--average-loss AVERAGE_LOSS] [-s SNAPSHOTS] [--step-size STEP_SIZE] [-b BALANCE] [-l LOG] [-k K] [--batch-size BATCH_SIZE] [--crop-size CROP_SIZE] [--complete-pretrain COMPLETE_PRETRAIN] [--side-weight SIDE_WEIGHT] [--fuse-weight FUSE_WEIGHT] [--gamma GAMMA]
+```
 
-## 5. Evaluation
+If you want to train HED and BDCN with pre-train model (The folder *./train/HED_pretrain* and *./train/BDCN_pretrain*) please download the .pth pretrain model file (vgg16-397923af.pth) from [here](https://github.com/soduco/ICDAR-2021-Vectorization/releases) and put it into *./pretrain_weight/*.
+
+## 5. Inference and restruction EPM to full size image
+
+Once models are trained and best models are selected, the function pred_full_map.py can predict and reconstruct the predicted EPM patches into full-size image. The main goal for the EPM recosntruction is used furthur for watershed process. 
+
+``` Bash
+cd ./train/<model_name>
+python pred_full_map.py --cuda --gpu <gpu_index> --model <trained_save_model> --original_image_path <original_image_before_patch> --EPM_border <border_of_frame> --batch_image_size <size_of_patches>
+```
+
+## 6. Watershed process
+
+A linux build is provided but, if for some reason it doesn't work for you, you can rebuild it yourself. Here is how.
+
+```shell script
+pip install conan
+conan remote add lrde-public https://artifactory.lrde.epita.fr/artifactory/api/conan/lrde-public
+
+cd ./watershed/histmapseg/
+mkdir newbuild && cd newbuild
+conan install .. --build missing -s compiler.libcxx=libstdc++11 -s compiler.cppstd=20 -g cmake
+cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DCMAKE_BUILD_TYPE=Release
+cmake --build . --config Release
+```
+Here you go: you now have your executable in *newbuild/bin/histmapseg*.
+
+## Run the watershed segmentation executable
+
+```shell script
+./watershed/histmapseg/build/bin/histmapseg <input.png> <dynamic> <area_closing> <ws.tiff> <out.png>
+```
+
+*input.png*: this should be the file of EPM
+
+*dynamic*: the parameter of dynamic
+
+*area_closing*: the size for closing area
+
+*ws.tiff*: the resulting watershed tiff file
+
+*out.png*: the colorized watershed file
+
+For instance, to use one of the parameter sets from the paper:
+
+```shell script
+./watershed/histmapseg/build/bin/histmapseg result_epm_mask 7 400 ws.tiff out.png
+```
+
+## 7. Evaluation
+
+
+
