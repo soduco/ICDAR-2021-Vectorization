@@ -14,7 +14,7 @@ python grid_search_watershed.py <watershed_dir> <EPM_path> <label_path> <output_
 python plot_eval_graph.py <input_results_dir> <input_results_dir> <output_file_path> <output_file_path_sen_1> <output_file_path_sen_2> <best_dynamic> <best_minimum_area>
 ```
 
-## Optimum choices for different models in 30 epochs:
+<!-- ## Optimum choices for different models in 30 epochs:
 
 HED:
 
@@ -54,4 +54,4 @@ Worst value after grid search: dynamic minimum 3 and area minimum 500 -> F1: 0.2
 
 ## Sensitivity results for UNET + watershed
 
-<img src="./eval_merge/dynamic_sensitivty_plot_UNET.png"  width="400" height="400"> <img src="./eval_merge/minimum_area_sensitivty_plot_UNET.png"  width="400" height="400">
+<img src="./eval_merge/dynamic_sensitivty_plot_UNET.png"  width="400" height="400"> <img src="./eval_merge/minimum_area_sensitivty_plot_UNET.png"  width="400" height="400"> -->
