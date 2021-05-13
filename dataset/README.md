@@ -74,9 +74,11 @@ da6dcfb4d972ed04e23df873d0280b71  BHdV_PL_ATL20Ardt_1926_0004-VAL-MASK_content.p
 
 The dataset is separated in three subsets, each on made of a single image:
 
-- train set: `*-TRAIN-*` images
-- validation set: `*-VAL-*` images
-- test set: `*-TEST-*` images
+| Subset     | Pattern     | Source                    | Image size  | # shapes | # tiles 500² |
+| ---------- | ----------- | ------------------------- | ----------- | -------- | ------------ |
+| train      | `*-TRAIN-*` | 1925 atlas, sheet 1 upper | 4500 × 9000 | 3343     | 703          |
+| validation | `*-VAL-*`   | 1925 atlas, sheet 1 lower | 3000 × 9000 | 2183     | 481          |
+| test       | `*-TEST-*`  | 1898 atlas, sheet 4       | 6000 × 5500 | 2836     | 575          |
 
 Inputs are composed of:
 
