@@ -2,7 +2,7 @@
 
 ## Pipeline
 <p align="center">
-<img src="./images/pipeline_v1.pdf" width="800px">
+<img src="./images/pipeline_v1.svg" width="100%">
 </p>
 
 ## Abstract
@@ -84,12 +84,12 @@ The file structure is:
 
 ```
 ./ICDAR-2021-Vectorization/data_generator
-├── train_data_tiles
-├── val_data_tiles
-├── test_data_tiles
-├── train_gt_tiles
-├── val_gt_tiles
-├── test_gt_tiles
+├── train_data_tiles/
+├── val_data_tiles/
+├── test_data_tiles/
+├── train_gt_tiles/
+├── val_gt_tiles/
+├── test_gt_tiles/
 ├── train_pari.lst
 ├── val_pair.lst
 └── test_pair.lst
