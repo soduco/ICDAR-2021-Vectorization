@@ -64,7 +64,6 @@ def train(model, args):
         mean_loss = []
         val_mean_loss = []
         batch_loss = 0
-        pos = 0
         with tqdm(total=n_train, desc=f'Epoch {epoch + 1}/{epochs}', unit='img',  leave=False) as pbar:
             for images, labels in trainloader:
                 # Set the gradient in the model into 0
