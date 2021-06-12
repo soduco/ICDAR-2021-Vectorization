@@ -24,9 +24,12 @@ Code, dataset, results and extra illustrations are freely available at this gith
 * [2. Installation](#2-installation)
 * [3. Prepare training data](#4-preparetrainingdata)
 * [4. Train](#4-train)
-* [5. Evaluation](#5-evaluation)
+* [5. Inference](#5-Inference-and-restruction-EPM-to-full-size-image)
+* [6. Watershed](#6-Watershed-process)
+* [7. Evaluation](#7-Evaluation)
 
 ## 1. Visual Results
+Please check the [Releases](https://github.com/soduco/ICDAR-2021-Vectorization/releases) to download it.
 
 ## 2. Installation
 
