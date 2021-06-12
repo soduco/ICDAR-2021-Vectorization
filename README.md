@@ -22,7 +22,7 @@ Code, dataset, results and extra illustrations are freely available at this gith
 
 * [1. Visual Results](#1-visual-results)
 * [2. Installation](#2-installation)
-* [3. Prepare training data](#4-preparetrainingdata)
+* [3. Prepare training data](#3-Prepare-training-data)
 * [4. Train](#4-train)
 * [5. Inference](#5-Inference-and-restruction-EPM-to-full-size-image)
 * [6. Watershed](#6-Watershed-process)
