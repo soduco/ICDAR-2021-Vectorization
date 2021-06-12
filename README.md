@@ -211,7 +211,7 @@ For instance, to use one of the parameter sets from the paper:
 Run the connected labelling algorithm to transfer boundary map into components labelling.
 
 ```shell script
-python EPM2labelmap.py input_path output_path
+python ./evaluation/EPM2labelmap.py input_path output_path
 ```
 
 ```
@@ -234,7 +234,7 @@ optional arguments:
 Run the evaluation according to predicted labelling and ground truth of labelling to get COCO panoptic score
 
 ```shell script
-python eval_shape_detection.py input_gt_path input_contenders_path 
+python ./evaluation/eval_shape_detection.py input_gt_path input_contenders_path 
 ```
 
 ```
