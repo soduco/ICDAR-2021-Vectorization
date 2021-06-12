@@ -1,9 +1,9 @@
 # Vectorization historical map
 
-## Pipeline
+<!-- ## Pipeline
 <p align="center">
 <img src="./images/pipeline_v1.svg" width="100%">
-</p>
+</p> -->
 
 ## Abstract
 Maps have been a unique source of knowledge for centuries. 
@@ -206,5 +206,51 @@ For instance, to use one of the parameter sets from the paper:
 
 ## 7. Evaluation
 
+### 1. Transfer binary image into component labelling by using EPM2labelmap.py
 
+Run the connected labelling algorithm to transfer boundary map into components labelling.
 
+```shell script
+python EPM2labelmap.py input_path output_path
+```
+
+```
+Takes an edge probability map and produces a label map. Edge pixels > 0.
+
+positional arguments:
+  input_path            Path to the input EPM (PNG format or TIFF 16 bits).
+  output_path           Path to the output label map (TIFF 16 format).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --threshold THRESHOLD
+                        Threshold value (float): v<=threshold => v in background.
+  --debug_labels DEBUG_LABELS
+                        Path to debug image (JPG) where to save the RGB label map.
+```
+
+### 2. Measure the COCO panoptic value repsect to predictions and ground turths by using eval_shape_detection.py
+
+Run the evaluation according to predicted labelling and ground truth of labelling to get COCO panoptic score
+
+```shell script
+python eval_shape_detection.py input_gt_path input_contenders_path 
+```
+
+```
+Evaluate the detection of shapes.
+
+positional arguments:
+  input_gt_path         Path to the input label map (TIFF 16 bits) for ground truth.
+  input_contenders_path
+                        Path to the contenders label map (TIFF 16 bits) for predictions.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m INPUT_MASK, --input-mask INPUT_MASK
+                        Path to an mask image (pixel with value 0 will be discarded in the evaluation).
+  -o OUTPUT_DIR, --output-dir OUTPUT_DIR
+                        Path to the output directory where results will be stored.
+  --iou-threshold IOU_THRESHOLD
+                        Threshold value (float) for IoU: 0.5 <= t < 1. Default=0.5
+```
