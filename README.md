@@ -179,7 +179,7 @@ conan remote add lrde-public https://artifactory.lrde.epita.fr/artifactory/api/c
 
 cd ./watershed/histmapseg/
 mkdir newbuild && cd newbuild
-conan install .. --build missing -s compiler.libcxx=libstdc++11 -s compiler.cppstd=20 -g cmake
+conan install .. --build missing -s compiler.libcxx=libstdc++11 -s compiler.cppstd=20 -g cmake --build pylene
 cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=OFF -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
 ```
