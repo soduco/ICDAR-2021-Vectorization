@@ -133,7 +133,7 @@ Since the size of whole image is too big as the input of the network, we require
 The batch images will save into folder *output_directory/image* and *output_directory/gt*
 
 ```shell script
-python ./data_generator/create_image_batch.py <map_image_input> <ground_truth_image_input> <output_directory>
+python ./data_generator/create_tilling.py <map_image_input> <ground_truth_image_input> <save_image_path> <save_gt_path> <width>
 ```
 
 #### 3.3.2. Generate .lst file index from image patches
