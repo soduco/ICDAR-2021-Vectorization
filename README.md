@@ -1,4 +1,6 @@
-# Vectorization historical map
+# Vectorization of Historical Maps
+
+> This repository is archived and no longer maintained.
 
 ## Citation
 
@@ -36,15 +38,15 @@ In this paper, we focus on the comprehensive benchmark on various architectures 
 Our experimental results on a new public dataset using COCO Panoptic metric exhibit very encouraging results confirmed by a qualitative analysis of the success and failure cases of our approach.
 Code, dataset, results and extra illustrations are freely available at this github repository.
 
-## Table of Content
+## Table of Contents
 
 * [1. Visual Results](#1-visual-results)
 * [2. Installation](#2-installation)
-* [3. Prepare training data](#3-Prepare-training-data)
+* [3. Prepare training data](#3-prepare-training-data)
 * [4. Train](#4-train)
-* [5. Inference](#5-Inference-and-restruction-EPM-to-full-size-image)
-* [6. Watershed](#6-Watershed-process)
-* [7. Evaluation](#7-Evaluation)
+* [5. Inference](#5-inference-and-reconstruction-epm-to-full-size-image)
+* [6. Watershed](#6-watershed-process)
+* [7. Evaluation](#7-evaluation)
 
 ## 1. Visual Results
 Please check the [Releases](https://github.com/soduco/ICDAR-2021-Vectorization/releases) to download it.
@@ -93,7 +95,7 @@ To ease the usage of training data, we provide two versions of dataset:
 
 1. Full images (~7000px * 11000px)
 
-2. Patch version (already cutting into small patches to ease training, every patch have size 500px 500px), and file index .lst file: *test_pari.lst*, *train_pair.lst*, *val_pair.lst*
+2. Patch version (already cutting into small patches to ease training, every patch have size 500px 500px), and file index .lst file: *test_pair.lst*, *train_pair.lst*, *val_pair.lst*
 Please check the [Releases](https://github.com/soduco/ICDAR-2021-Vectorization/releases) to download it.
 
 ### 3.2. Reproducing the training on historical maps 
@@ -111,7 +113,7 @@ The file structure is:
 ├── train_gt_tiles/
 ├── val_gt_tiles/
 ├── test_gt_tiles/
-├── train_pari.lst
+├── train_pair.lst
 ├── val_pair.lst
 └── test_pair.lst
 ```
@@ -140,7 +142,7 @@ config_val = {
 ```
 
 ### 3.3. Create image patch from full map images
-To create image patches for training, it consist two seperate step:
+To create image patches for training, it consist two separate step:
 1. Create image patches
 2. Generate .lst file index from image patches
 
@@ -165,7 +167,7 @@ The file structure should be the same as in section 3.2.
 
 
 ## 4. Train
-we can now train the models with the prepared data. Remeber the data should be patched and .lst file should be correctly generated and put into the right place. If you want to get more control for training details, please execute --help command:
+we can now train the models with the prepared data. Remember the data should be patched and .lst file should be correctly generated and put into the right place. If you want to get more control for training details, please execute --help command:
 
 ``` Bash
 cd ./train/<model_name>
@@ -178,7 +180,7 @@ usage: train.py [-h] [-d {HistoricalMap2020}] [--param-dir PARAM_DIR] [--lr BASE
 
 If you want to train HED and BDCN with pre-train model (The folder *./train/HED_pretrain* and *./train/BDCN_pretrain*) please download the .pth pretrain model file (vgg16-397923af.pth) from [here](https://github.com/soduco/ICDAR-2021-Vectorization/releases), and put into *./train/<model_name>/pretrain* folder.
 
-## 5. Inference and restruction EPM to full size image
+## 5. Inference and reconstruction EPM to full size image
 
 Once models are trained and best models are selected, the function pred_full_map.py can predict and reconstruct the predicted EPM patches into full-size image. The main goal for the EPM recosntruction consists four steps:
 1. Predict all image patches from full map by using selected model;
@@ -254,7 +256,7 @@ optional arguments:
                         Path to debug image (JPG) where to save the RGB label map.
 ```
 
-### 2. Measure the COCO panoptic value repsect to predictions and ground turths by using eval_shape_detection.py
+### 2. Measure the COCO panoptic value respect to predictions and ground truths by using eval_shape_detection.py
 
 Run the evaluation according to predicted labelling and ground truth of labelling to get COCO panoptic score
 
