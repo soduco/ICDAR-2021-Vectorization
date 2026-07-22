@@ -5,24 +5,16 @@
 If you use this repository, please cite the ICDAR 2021 paper:
 
 ```bibtex
-@InProceedings{10.1007/978-3-030-86337-1_34,
-author="Chen, Yizi
-and Carlinet, Edwin
-and Chazalon, Joseph
-and Mallet, Cl{\'e}ment
-and Dum{\'e}nieu, Bertrand
-and Perret, Julien",
-editor="Llad{\'o}s, Josep
-and Lopresti, Daniel
-and Uchida, Seiichi",
-title="Vectorization of Historical Maps Using Deep Edge Filtering and Closed Shape Extraction",
-booktitle="Document Analysis and Recognition -- ICDAR 2021",
-year="2021",
-publisher="Springer International Publishing",
-address="Cham",
-pages="510--525",
-abstract="Maps have been a unique source of knowledge for centuries. Such historical documents provide invaluable information for analyzing the complex spatial transformation of landscapes over important time frames. This is particularly true for urban areas that encompass multiple interleaved research domains (social sciences, economy, etc.). The large amount and significant diversity of map sources call for automatic image processing techniques in order to extract the relevant objects under a vectorial shape. The complexity of maps (text, noise, digitization artifacts, etc.) has hindered the capacity of proposing a versatile and efficient raster-to-vector approaches for decades. We propose a learnable, reproducible, and reusable solution for the automatic transformation of raster maps into vector objects (building blocks, streets, rivers). It is built upon the complementary strength of mathematical morphology and convolutional neural networks through efficient edge filtering. Evenmore, we modify ConnNet and combine with deep edge filtering architecture to make use of pixel connectivity information and built an end-to-end system without requiring any post-processing techniques. In this paper, we focus on the comprehensive benchmark on various architectures on multiple datasets coupled with a novel vectorization step. Our experimental results on a new public dataset using COCO Panoptic metric exhibit very encouraging results confirmed by a qualitative analysis of the success and failure cases of our approach. Code, dataset, results and extra illustrations are freely available at https://github.com/soduco/ICDAR-2021-Vectorization.",
-isbn="978-3-030-86337-1"
+@inproceedings{chen2021vectorization,
+  author    = {Chen, Yizi and Carlinet, Edwin and Chazalon, Joseph and Mallet, Cl{\'e}ment and Dum{\'e}nieu, Bertrand and Perret, Julien},
+  editor    = {Llad{\'o}s, Josep and Lopresti, Daniel and Uchida, Seiichi},
+  title     = {Vectorization of Historical Maps Using Deep Edge Filtering and Closed Shape Extraction},
+  booktitle = {Document Analysis and Recognition -- ICDAR 2021},
+  year      = {2021},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {510--525},
+  isbn      = {978-3-030-86337-1}
 }
 ```
 
