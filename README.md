@@ -1,5 +1,31 @@
 # Vectorization historical map
 
+## Citation
+
+If you use this repository, please cite the ICDAR 2021 paper:
+
+```bibtex
+@InProceedings{10.1007/978-3-030-86337-1_34,
+author="Chen, Yizi
+and Carlinet, Edwin
+and Chazalon, Joseph
+and Mallet, Cl{\'e}ment
+and Dum{\'e}nieu, Bertrand
+and Perret, Julien",
+editor="Llad{\'o}s, Josep
+and Lopresti, Daniel
+and Uchida, Seiichi",
+title="Vectorization of Historical Maps Using Deep Edge Filtering and Closed Shape Extraction",
+booktitle="Document Analysis and Recognition -- ICDAR 2021",
+year="2021",
+publisher="Springer International Publishing",
+address="Cham",
+pages="510--525",
+abstract="Maps have been a unique source of knowledge for centuries. Such historical documents provide invaluable information for analyzing the complex spatial transformation of landscapes over important time frames. This is particularly true for urban areas that encompass multiple interleaved research domains (social sciences, economy, etc.). The large amount and significant diversity of map sources call for automatic image processing techniques in order to extract the relevant objects under a vectorial shape. The complexity of maps (text, noise, digitization artifacts, etc.) has hindered the capacity of proposing a versatile and efficient raster-to-vector approaches for decades. We propose a learnable, reproducible, and reusable solution for the automatic transformation of raster maps into vector objects (building blocks, streets, rivers). It is built upon the complementary strength of mathematical morphology and convolutional neural networks through efficient edge filtering. Evenmore, we modify ConnNet and combine with deep edge filtering architecture to make use of pixel connectivity information and built an end-to-end system without requiring any post-processing techniques. In this paper, we focus on the comprehensive benchmark on various architectures on multiple datasets coupled with a novel vectorization step. Our experimental results on a new public dataset using COCO Panoptic metric exhibit very encouraging results confirmed by a qualitative analysis of the success and failure cases of our approach. Code, dataset, results and extra illustrations are freely available at https://github.com/soduco/ICDAR-2021-Vectorization.",
+isbn="978-3-030-86337-1"
+}
+```
+
 <!-- ## Pipeline
 <p align="center">
 <img src="./images/pipeline_v1.svg" width="100%">
@@ -98,7 +124,7 @@ The file structure is:
 └── test_pair.lst
 ```
 
-The configuration file *cfg.py*, 'data_lst' should link with the path of the .lst file, *mean_bgr* is the average value of bgr channel for the whole *train/val/test* dataset, but you can also configure *cfg.py* and more options are available:
+The configuration file *cfg.py*, 'data_lst' should link with the path of the .lst file, *mean_bgr* is the average value of bgr channel for the whole *train/val/test* dataset, but you can also compute by using your own dataset.
 
 ```python
 config = {
@@ -147,7 +173,7 @@ The file structure should be the same as in section 3.2.
 
 
 ## 4. Train
-we can now train the models with the prepared data. Remeber the data should be patched and .lst file should be correctly generated and put into the right place. If you want to get more control for your training, you can list all the arguments:
+we can now train the models with the prepared data. Remeber the data should be patched and .lst file should be correctly generated and put into the right place. If you want to get more control for training details, please execute --help command:
 
 ``` Bash
 cd ./train/<model_name>
@@ -155,18 +181,22 @@ python train.py --help
 ```
 
 ```
-usage: train.py [-h] [-d {HistoricalMap2020}] [--param-dir PARAM_DIR] [--lr BASE_LR] [-m MOMENTUM] [--model MODEL] [-c] [-g GPU] [--weight-decay WEIGHT_DECAY] [-r RESUME] [-p PRETRAIN] [--epochs EPOCHS] [--max-iter MAX_ITER] [--iter-size ITER_SIZE][--average-loss AVERAGE_LOSS] [-s SNAPSHOTS] [--step-size STEP_SIZE] [-b BALANCE] [-l LOG] [-k K] [--batch-size BATCH_SIZE] [--crop-size CROP_SIZE] [--complete-pretrain COMPLETE_PRETRAIN] [--side-weight SIDE_WEIGHT] [--fuse-weight FUSE_WEIGHT] [--gamma GAMMA]
+usage: train.py [-h] [-d {HistoricalMap2020}] [--param-dir PARAM_DIR] [--lr BASE_LR] [-m MOMENTUM] [--model MODEL] [-c] [-g GPU] [--weight-decay WEIGHT_DECAY] [-r RESUME] [-p PRETRAIN] [--epochs EPOCHS] [--max-iter MAX_ITER] [--iter-size ITER_SIZE] [--average-loss AVERAGE_LOSS] [--snapshots SNAPSHOTS] [--step-size STEP_SIZE] [--display DISPLAY] [--balance BALANCE] [--log LOG] [--k K] [--batch-size BATCH_SIZE] [--resume-model RESUME_MODEL]
 ```
 
-If you want to train HED and BDCN with pre-train model (The folder *./train/HED_pretrain* and *./train/BDCN_pretrain*) please download the .pth pretrain model file (vgg16-397923af.pth) from [here](https://github.com/soduco/ICDAR-2021-Vectorization/releases) and put it into *./pretrain_weight/*.
+If you want to train HED and BDCN with pre-train model (The folder *./train/HED_pretrain* and *./train/BDCN_pretrain*) please download the .pth pretrain model file (vgg16-397923af.pth) from [here](https://github.com/soduco/ICDAR-2021-Vectorization/releases), and put into *./train/<model_name>/pretrain* folder.
 
 ## 5. Inference and restruction EPM to full size image
 
-Once models are trained and best models are selected, the function pred_full_map.py can predict and reconstruct the predicted EPM patches into full-size image. The main goal for the EPM recosntruction is used furthur for watershed process. 
+Once models are trained and best models are selected, the function pred_full_map.py can predict and reconstruct the predicted EPM patches into full-size image. The main goal for the EPM recosntruction consists four steps:
+1. Predict all image patches from full map by using selected model;
+2. Binary process all predicted patches according to selected threshold to get binary masks;
+3. Crop each binary predicted patch according to the border setup;
+4. Reconstruct all selected and binary predicted patches to full-size map image.
 
 ``` Bash
 cd ./train/<model_name>
-python pred_full_map.py --cuda --gpu <gpu_index> --model <trained_save_model> --original_image_path <original_image_before_patch> --EPM_border <border_of_frame> --batch_image_size <size_of_patches>
+python pred_full_map.py --cuda --gpu <gpu_index> --model <trained_save_model> --original_image_path <original_image_before_patch> --EPM_border <border_of_frame> --batch_image_size <size_of_patched_image>
 ```
 
 ## 6. Watershed process
